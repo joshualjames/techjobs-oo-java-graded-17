@@ -113,7 +113,6 @@ public class Job {
                 "Employer: " + strEmployer + lineSeparator() +
                 "Location: " + strLocation + lineSeparator() +
                 "Position Type: " + strPositionType + lineSeparator() +
-                "Core Competency: " + strCoreCompetency + lineSeparator() +
-                lineSeparator();
+                "Core Competency: " + strCoreCompetency + lineSeparator();
     }
 }
