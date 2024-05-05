@@ -102,10 +102,10 @@ public class Job {
 
     //toString
     public String toString() {
-        String strEmployer = ((this.getEmployer().getValue() == null) ? "Data not available" : String.valueOf(this.getEmployer()));
-        String strLocation = ((this.getLocation().getValue() == null)  ? "Data not available" : String.valueOf(this.getLocation()));
-        String strPositionType = ((this.getPositionType().getValue() == null) ? "Data not available" : String.valueOf(this.getPositionType()));
-        String strCoreCompetency = ((this.getCoreCompetency().getValue() == null) ? "Data not available" : String.valueOf(this.getCoreCompetency()));
+        String strEmployer = ((this.getEmployer().getValue() == null) || Objects.equals(this.getEmployer().getValue(), "") ? "Data not available" : String.valueOf(this.getEmployer()));
+        String strLocation = ((this.getLocation().getValue() == null) || Objects.equals(this.getLocation().getValue(), "") ? "Data not available" : String.valueOf(this.getLocation()));
+        String strPositionType = ((this.getPositionType().getValue() == null) || Objects.equals(this.getPositionType().getValue(), "")? "Data not available" : String.valueOf(this.getPositionType()));
+        String strCoreCompetency = ((this.getCoreCompetency().getValue() == null) || Objects.equals(this.getCoreCompetency().getValue(), "")? "Data not available" : String.valueOf(this.getCoreCompetency()));
 
         return lineSeparator() +
                 "ID: " + id + lineSeparator() +

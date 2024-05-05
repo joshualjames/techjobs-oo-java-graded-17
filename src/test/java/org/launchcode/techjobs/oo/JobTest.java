@@ -50,7 +50,6 @@ public class JobTest {
         assertFalse(jobTest1.equals(jobTest2));
     }
 
-
     Job testJob = new Job("Astronaut", new Employer("NASA"), new Location("Space"), new PositionType("Rocket Scientist"), new CoreCompetency("Science"));
 
     @Test
@@ -80,14 +79,11 @@ public class JobTest {
         assertTrue(splitTestJob[3].contains("Location:"));
         assertTrue(splitTestJob[4].contains("Position Type:"));
         assertTrue(splitTestJob[5].contains("Core Competency:"));
-
     }
 
     public HashMap<String, String> finalSplitString(Job testJob) {
         String[] splitTestJob = testJob.toString().trim().split(":");
         ArrayList<String> stringTestJob = new ArrayList<>();
-        ArrayList<String> stringKeys = new ArrayList<>();
-        ArrayList<String> stringValues = new ArrayList<>();
         for (String s : splitTestJob) {
             String[] holder = s.split("\n");
             for (String string : holder) {
@@ -106,7 +102,7 @@ public class JobTest {
     }
 
     @Test
-    public void testToStringContainsCorrectValuesAfterLabels() {
+    public void testToStringContainsCorrectLabelsAndData() {
 
         HashMap<String, String> finalStringTestJob = finalSplitString(testJob);
 
@@ -119,21 +115,44 @@ public class JobTest {
     }
 
     @Test
-    public void testEmptyFieldToStringReturnsDataNotAvailable() {
+    public void testToStringHandlesEmptyField() {
 
-        Job noEmployer = new Job("Remote Job", new Employer(), new Location("Pawnee"), new PositionType("Computer stuff"), new CoreCompetency("Technology"));
-        HashMap<String, String> finalSplitNoEmployer = finalSplitString(noEmployer);
-        Job noLocation = new Job("Remote Job", new Employer("Self"), new Location(), new PositionType("Computer stuff"), new CoreCompetency("Technology"));
-        HashMap<String, String> finalSplitNoLocation = finalSplitString(noLocation);
-        Job noPositionType = new Job("Remote Job", new Employer("Self"), new Location("Pawnee"), new PositionType(), new CoreCompetency("Technology"));
-        HashMap<String, String> finalSplitNoPositionType = finalSplitString(noPositionType);
-        Job noCoreCompetency = new Job("Remote Job", new Employer("Self"), new Location("Pawnee"), new PositionType("Computer stuff"), new CoreCompetency());
-        HashMap<String, String> finalSplitNoCoreCompetency = finalSplitString(noCoreCompetency);
+        Job emptyName = new Job("", new Employer("Self"), new Location("Pawnee"), new PositionType("Computer stuff"), new CoreCompetency("Technology"));
+        HashMap<String, String> finalSplitNoName = finalSplitString(emptyName);
+
+        Job nullEmployer = new Job("Remote Job", new Employer(), new Location("Pawnee"), new PositionType("Computer stuff"), new CoreCompetency("Technology"));
+        HashMap<String, String> finalSplitNoEmployer = finalSplitString(nullEmployer);
+        Job emptyEmployer = new Job("Remote Job", new Employer(""), new Location("Pawnee"), new PositionType("Computer stuff"), new CoreCompetency("Technology"));
+        HashMap<String, String> finalSplitEmptyEmployer = finalSplitString(emptyEmployer);
+
+        Job nullLocation = new Job("Remote Job", new Employer("Self"), new Location(), new PositionType("Computer stuff"), new CoreCompetency("Technology"));
+        HashMap<String, String> finalSplitNoLocation = finalSplitString(nullLocation);
+        Job emptyLocation = new Job("Remote Job", new Employer("Self"), new Location(""), new PositionType("Computer stuff"), new CoreCompetency("Technology"));
+        HashMap<String, String> finalSplitEmptyLocation = finalSplitString(emptyLocation);
+
+        Job nullPositionType = new Job("Remote Job", new Employer("Self"), new Location("Pawnee"), new PositionType(), new CoreCompetency("Technology"));
+        HashMap<String, String> finalSplitNoPositionType = finalSplitString(nullPositionType);
+        Job emptyPositionType = new Job("Remote Job", new Employer("Self"), new Location("Pawnee"), new PositionType(""), new CoreCompetency("Technology"));
+        HashMap<String, String> finalSplitEmptyPositionType = finalSplitString(emptyPositionType);
+
+        Job nullCoreCompetency = new Job("Remote Job", new Employer("Self"), new Location("Pawnee"), new PositionType("Computer stuff"), new CoreCompetency());
+        HashMap<String, String> finalSplitNoCoreCompetency = finalSplitString(nullCoreCompetency);
+        Job emptyCoreCompetency = new Job("Remote Job", new Employer("Self"), new Location("Pawnee"), new PositionType("Computer stuff"), new CoreCompetency(""));
+        HashMap<String, String> finalSplitEmptyCoreCompetency = finalSplitString(emptyCoreCompetency);
+
+        assertEquals(finalSplitNoName.get("Name"), "Data not available");
 
         assertEquals(finalSplitNoEmployer.get("Employer"), "Data not available");
+        assertEquals(finalSplitEmptyEmployer.get("Employer"), "Data not available");
+
         assertEquals(finalSplitNoLocation.get("Location"), "Data not available");
+        assertEquals(finalSplitEmptyLocation.get("Location"), "Data not available");
+
         assertEquals(finalSplitNoPositionType.get("Position Type"), "Data not available");
+        assertEquals(finalSplitEmptyPositionType.get("Position Type"), "Data not available");
+
         assertEquals(finalSplitNoCoreCompetency.get("Core Competency"), "Data not available");
+        assertEquals(finalSplitEmptyCoreCompetency.get("Core Competency"), "Data not available");
 
     }
 
