@@ -1,6 +1,9 @@
 package org.launchcode.techjobs.oo;
 
+import java.util.ArrayList;
 import java.util.Objects;
+
+import static java.lang.System.lineSeparator;
 
 public class Job {
 
@@ -51,6 +54,9 @@ public class Job {
 
 
     public String getName() {
+        if (name == null || name.isEmpty()){
+            return "Data not available";
+        }
         return name;
     }
 
@@ -92,5 +98,22 @@ public class Job {
 
     public int getId() {
         return id;
+    }
+
+    //toString
+    public String toString() {
+        String strEmployer = ((this.getEmployer().getValue() == null) ? "Data not available" : String.valueOf(this.getEmployer()));
+        String strLocation = ((this.getLocation().getValue() == null)  ? "Data not available" : String.valueOf(this.getLocation()));
+        String strPositionType = ((this.getPositionType().getValue() == null) ? "Data not available" : String.valueOf(this.getPositionType()));
+        String strCoreCompetency = ((this.getCoreCompetency().getValue() == null) ? "Data not available" : String.valueOf(this.getCoreCompetency()));
+
+        return lineSeparator() +
+                "ID: " + id + lineSeparator() +
+                "Name: " + this.getName() + lineSeparator() +
+                "Employer: " + strEmployer + lineSeparator() +
+                "Location: " + strLocation + lineSeparator() +
+                "Position Type: " + strPositionType + lineSeparator() +
+                "Core Competency: " + strCoreCompetency + lineSeparator() +
+                lineSeparator();
     }
 }
